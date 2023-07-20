@@ -21,8 +21,18 @@ class Staff_model extends CI_Model
                 ";
         return $this->db->query($query)->result_array();
     }
+    
+    // public function getPengaduanTolakStaff($id_staff)
+    // {
+    //     $query = "SELECT `pengaduan`.*, `user`.`name`,`npm`
+    //               FROM `pengaduan` JOIN `user`
+    //               ON `pengaduan`.`user_id` = `user`.`id`
+    //               WHERE `pengaduan`.`status` = '2' AND `pengaduan`.`kategori_id` = $id_staff
+    //             ";
+    //     return $this->db->query($query)->result_array();
+    // }
 
-    public function getPengaduanProsesStaff($id_staff)
+    public function getPengaduanSelesaiStaff($id_staff)
     {
         $query = "SELECT `pengaduan`.*, `user`.`name`,`npm`
                   FROM `pengaduan` JOIN `user`
@@ -31,23 +41,17 @@ class Staff_model extends CI_Model
                 ";
         return $this->db->query($query)->result_array();
     }
-    
-    public function getPengaduanTolakStaff($id_staff)
-    {
-        $query = "SELECT `pengaduan`.*, `user`.`name`,`npm`
-                  FROM `pengaduan` JOIN `user`
-                  ON `pengaduan`.`user_id` = `user`.`id`
-                  WHERE `pengaduan`.`status` = '2' AND `pengaduan`.`kategori_id` = $id_staff
-                ";
-        return $this->db->query($query)->result_array();
-    }
 
-    public function getPengaduanSelesaiStaff($id_staff)
+    public function laporan_pengaduan($id)
     {
-        $query = "SELECT `pengaduan`.*, `user`.`name`,`npm`
-                  FROM `pengaduan` JOIN `user`
+        $query = "SELECT `tanggapan`.*, `pengaduan`.*, `user`.*, `staff`.`staff`
+                  FROM `tanggapan` JOIN `pengaduan`
+                  ON `tanggapan`.`pengaduan_id` = `pengaduan`.`id`
+                  LEFT JOIN `user`
                   ON `pengaduan`.`user_id` = `user`.`id`
-                  WHERE `pengaduan`.`status` = '4' AND `pengaduan`.`kategori_id` = $id_staff
+                  LEFT JOIN `staff`
+                  ON `tanggapan`.`kategori_id` = `staff`.`id`
+                  WHERE `pengaduan`.`kategori_id` = $id
                 ";
         return $this->db->query($query)->result_array();
     }

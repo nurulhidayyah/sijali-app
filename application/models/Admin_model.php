@@ -23,7 +23,6 @@ class Admin_model extends CI_Model
                   ON `pengaduan`.`user_id` = `user`.`id`
                   LEFT JOIN `staff`
                   ON `tanggapan`.`kategori_id` = `staff`.`id`
-                  WHERE `pengaduan`.`user_id` = `user`.`id`
                 ";
         return $this->db->query($query)->result_array();
     }

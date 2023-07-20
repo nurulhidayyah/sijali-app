@@ -77,8 +77,6 @@
                             elseif ($p['status'] == '1') :
                                 echo '<span class="badge badge-primary">Sedang diproses oleh ' . $p['staff'] . '</span>';
                             elseif ($p['status'] == '3') :
-                                echo '<span class="badge badge-primary">Sedang diproses oleh ' . $p['staff'] . '</span>';
-                            elseif ($p['status'] == '4') :
                                 echo '<span class="badge badge-success">Selesai dikerjakan ' . $p['staff'] . '</span>';
                             elseif ($p['status'] == '2') :
                                 echo '<span class="badge badge-danger">Pengaduan ditolak</span>';

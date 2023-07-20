@@ -57,7 +57,6 @@ class Admin extends CI_Controller
 
     public function usersEdit($id)
     {
-        $data['title'] = 'Users';
         $data['user'] = $this->db->get_where('user', ['id' => $id])->row_array();
 
         $this->load->model('User_model', 'user');
@@ -94,7 +93,7 @@ class Admin extends CI_Controller
 
     public function users_delete($id)
     {
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['email' => $id])->row_array();
         $this->db->where('id', $id);
         $this->db->delete('user');
         $old_image = $data['user']['image'];
@@ -209,7 +208,6 @@ class Admin extends CI_Controller
                 'kategori' => $this->input->post('kategori'),
                 'email' => $this->input->post('email'),
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-                'image' => 'default.jpg',
                 'role_id' => $this->input->post('role_id'),
                 'date_created' => time(),
             ];
@@ -220,6 +218,20 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data staff updated!</div>');
             redirect('admin/staffs');
         }
+    }
+
+    public function staff_delete($id)
+    {
+        $data['staff'] = $this->db->get_where('staff', ['id' => $id])->row_array();
+        $this->db->where('id', $id);
+        $this->db->delete('staff');
+        $old_image = $data['staff']['image'];
+        if ($old_image != 'default.jpg') {
+            unlink(FCPATH . 'assets/img/profile/' . $old_image);
+        }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your data staff has been deleted!</div>');
+        redirect('admin/staffs');
     }
 
     public function pengaduan()
@@ -235,40 +247,6 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/pengaduan', $data);
         $this->load->view('templates/footer');
-    }
-
-    public function laporan()
-    {
-        $data['title'] = 'Laporan';
-        $data['user'] = $this->db->get_where('staff', ['email' => $this->session->userdata('email')])->row_array();
-
-        $this->load->model('Admin_model', 'pengaduan');
-        $data['pengaduan'] = $this->pengaduan->laporan_pengaduan();
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/laporan', $data);
-        $this->load->view('templates/footer');
-    }
-
-    public function generate_laporan()
-    {
-        $data['title'] = 'Laporan';
-        $data['user'] = $this->db->get_where('staff', ['email' => $this->session->userdata('email')])->row_array();
-
-        $this->load->model('Admin_model', 'pengaduan');
-        $data['pengaduan'] = $this->pengaduan->laporan_pengaduan();
-        
-        $html = $this->load->view('admin/generate_laporan', $data, true);
-
-        $mpdf = new \Mpdf\Mpdf([
-            'format' => 'A4',
-            'orientation' => 'landscape',
-            'margin' => 0
-        ]);
-        $mpdf->WriteHTML($html);
-        $mpdf->Output();
     }
 
     public function pengaduan_detail()
@@ -304,7 +282,6 @@ class Admin extends CI_Controller
         $data['pengaduan'] = $this->db->get_where('pengaduan', ['id' => $id])->row_array();
 
         $this->form_validation->set_rules('status', 'Status Pengaduan', 'trim|required');
-        $this->form_validation->set_rules('staff', 'Kategori', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header', $data);
@@ -315,7 +292,7 @@ class Admin extends CI_Controller
         } else {
             $params = [
                 'pengaduan_id' => $id,
-                'tanggal' => '',
+                'tanggal' => null,
                 'kategori_id' => htmlspecialchars($this->input->post('staff', true))
             ];
 
@@ -346,5 +323,39 @@ class Admin extends CI_Controller
                 redirect('admin/pengaduan');
             }
         }
+    }
+
+    public function laporan()
+    {
+        $data['title'] = 'Laporan';
+        $data['user'] = $this->db->get_where('staff', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->model('Admin_model', 'pengaduan');
+        $data['pengaduan'] = $this->pengaduan->laporan_pengaduan();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/laporan', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function generate_laporan()
+    {
+        $data['title'] = 'Laporan';
+        $data['user'] = $this->db->get_where('staff', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->model('Admin_model', 'pengaduan');
+        $data['pengaduan'] = $this->pengaduan->laporan_pengaduan();
+        
+        $html = $this->load->view('admin/generate_laporan', $data, true);
+
+        $mpdf = new \Mpdf\Mpdf([
+            'format' => 'A4',
+            'orientation' => 'landscape',
+            'margin' => 0
+        ]);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
     }
 }

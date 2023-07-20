@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2023 at 07:10 AM
+-- Generation Time: Jul 20, 2023 at 05:56 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -38,15 +38,6 @@ CREATE TABLE `pengaduan` (
   `kategori_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `pengaduan`
---
-
-INSERT INTO `pengaduan` (`id`, `user_id`, `title`, `body`, `created_at`, `bukti`, `status`, `kategori_id`) VALUES
-(1, 2, 'Fasilitas', 'Ac rusak panas euy!!', 1689810770, '488-1000x500-grayscale.jpg', 4, 2),
-(2, 2, 'Test', 'Nyobanyoba', 1689811161, '488-1000x500-grayscale1.jpg', 2, 1),
-(3, 2, 'Sekali Lagi', 'dasdada', 1689811728, '488-1000x500-grayscale2.jpg', 0, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -69,8 +60,7 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `staff`, `kategori`, `email`, `password`, `image`, `role_id`, `date_created`) VALUES
-(1, 'UPT Kemahasiswaan', 'Kemahasiswaan', 'kemahasiswaan@gmail.com', '$2y$10$sFcN/KUhaVS8KVyCb8BcZ.Qlm5oVmNhdgsZuoxCg0gxGp4D110.cy', 'default.jpg', 3, '1689810517'),
-(2, 'UPT Sarana Prasarana', 'Sarana dan Prasarana', 'sarpras@gmail.com', '$2y$10$OEeFK0IJuuyOPT4yATp9qO63et/diQ2lvk2aPudwkrzowz8yRiXnS', 'default.jpg', 3, '1689810840');
+(1, 'UPT Kemahasiswaan', 'Kemahasiswaan', 'kemahasiswaan@gmail.com', '$2y$10$P2/4qow0eHuISWgqVPfOhOI/0csQHyxtnD2JLVlZlD0wIwclXyVHq', 'default.jpg', 3, '1689850315');
 
 -- --------------------------------------------------------
 
@@ -82,17 +72,9 @@ CREATE TABLE `tanggapan` (
   `id` int(11) NOT NULL,
   `pengaduan_id` int(11) NOT NULL,
   `tanggapan` text DEFAULT NULL,
-  `tanggal` varchar(255) NOT NULL,
+  `tanggal` varchar(255) DEFAULT NULL,
   `kategori_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tanggapan`
---
-
-INSERT INTO `tanggapan` (`id`, `pengaduan_id`, `tanggapan`, `tanggal`, `kategori_id`) VALUES
-(1, 1, 'Oke siap', '1689811133', 2),
-(2, 2, 'jangan nyobanyoba', '1689811293', 1);
 
 -- --------------------------------------------------------
 
@@ -117,8 +99,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `npm`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(1, 'Admin', '1', 'admin@gmail.com', 'default.jpg', '$2y$10$0JmWxeGoMIeHLjni1pzH5.1zJFKeuA.ZRa4V7upTRHNE3ziE6jrY2', 1, 1, 1689810438),
-(2, 'Nurul Hidayah', '1101191095', 'nurulhidayyah45@gmail.com', 'default.jpg', '$2y$10$pKkCBxu/t5XSodFTmWYEt.rrV3mhtVVP0iXn8hBJ6YqJQxyphCPAy', 2, 1, 1689810572);
+(1, 'Admin', '1', 'admin@gmail.com', 'default.jpg', '$2y$10$QeBq5q7Uzxw2wd5Fkc5kee3zsn.rwPQXUwow0xRPA1KHzvLCnEzb6', 1, 1, 1689850388),
+(2, 'Nurul Hidayah', '1101191095', 'nurulhidayyah45@gmail.com', 'default.jpg', '$2y$10$rmwDoFjOJZW2foNX6pOU1.BJHjLkFQ3AYnKIiwXqQxMyJkOcPY8Mu', 2, 1, 1689850459);
 
 -- --------------------------------------------------------
 
@@ -240,10 +222,9 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (13, 1, 'Pengaduan Masuk', 'admin/pengaduan', 'fas fa-envelope-open-text\r\n', 1),
 (14, 5, 'Dashboard Staff', 'staff', 'fas fa-fw fa-tachometer-alt', 1),
 (15, 5, 'Pengaduan Masuk (Staff)', 'staff/pengaduan', 'fas fa-envelope-open-text', 1),
-(16, 5, 'Pengaduan Proses (Staff)', 'staff/pengaduanproses', 'fas fa-microchip', 1),
-(17, 5, 'Pengaduan Ditolak (Staff)', 'staff/pengaduanditolak', 'fas fa-user-times', 1),
 (18, 1, 'Laporan', 'admin/laporan', 'fas fa-file-pdf', 1),
-(19, 5, 'Pengaduan Selesai (Staff)', 'staff/pengaduanselesai', 'fas fa-check-square', 1);
+(19, 5, 'Pengaduan Selesai (Staff)', 'staff/pengaduanselesai', 'fas fa-check-square', 1),
+(20, 5, 'Laporan (Staff)', 'staff/laporan', 'fas fa-file-pdf', 1);
 
 -- --------------------------------------------------------
 
@@ -330,19 +311,19 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tanggapan`
 --
 ALTER TABLE `tanggapan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -378,7 +359,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `user_token`
