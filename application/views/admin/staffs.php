@@ -116,7 +116,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="<?= base_url('admin/s/' . $s['id']); ?>" method="post">
+                <form action="<?= base_url('admin/staffEdit/' . $s['id']); ?>" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <input type="text" class="form-control" id="staff" name="staff" value="<?= $s['staff']; ?>" placeholder="name" required>

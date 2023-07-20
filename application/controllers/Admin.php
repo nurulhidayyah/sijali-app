@@ -261,13 +261,6 @@ class Admin extends CI_Controller
         $data['pengaduan'] = $this->pengaduan->laporan_pengaduan();
         
         $html = $this->load->view('admin/generate_laporan', $data, true);
-        // $data['title'] = 'Laporan';
-        // $data['user'] = $this->db->get_where('staff', ['email' => $this->session->userdata('email')])->row_array();
-
-        // $this->load->model('Admin_model', 'pengaduan');
-        // $data['pengaduan'] = $this->pengaduan->laporan_pengaduan();
-
-        // $html = $this->load->view('admin/generate_laporan', $data, true);
 
         $mpdf = new \Mpdf\Mpdf([
             'format' => 'A4',
@@ -322,7 +315,7 @@ class Admin extends CI_Controller
         } else {
             $params = [
                 'pengaduan_id' => $id,
-                'tanggal' => time(),
+                'tanggal' => '',
                 'kategori_id' => htmlspecialchars($this->input->post('staff', true))
             ];
 
