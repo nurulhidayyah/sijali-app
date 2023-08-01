@@ -86,6 +86,7 @@ class Setting extends CI_Controller
             } else {
                 $name = htmlspecialchars($this->input->post('name'), true);
                 $email = htmlspecialchars($this->input->post('email'), true);
+                $no_telp = htmlspecialchars($this->input->post('no_telp'), true);
 
                 // cek jika ada gambar yang akan diupload
                 $upload_image = $_FILES['image']['name'];
@@ -110,6 +111,7 @@ class Setting extends CI_Controller
                 }
 
                 $this->db->set('name', $name);
+                $this->db->set('no_telp', $no_telp);
                 $this->db->where('email', $email);
                 $this->db->update('user');
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2023 at 01:05 PM
+-- Generation Time: Aug 01, 2023 at 02:44 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -87,6 +87,7 @@ CREATE TABLE `user` (
   `name` varchar(128) NOT NULL,
   `npm` varchar(255) NOT NULL,
   `email` varchar(128) NOT NULL,
+  `no_telp` varchar(15) NOT NULL,
   `image` varchar(128) DEFAULT NULL,
   `password` varchar(256) NOT NULL,
   `role_id` int(11) NOT NULL,
@@ -98,8 +99,8 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `npm`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(1, 'Admin', '1', 'admin@gmail.com', 'default.jpg', '$2y$10$QeBq5q7Uzxw2wd5Fkc5kee3zsn.rwPQXUwow0xRPA1KHzvLCnEzb6', 1, 1, 1689850388);
+INSERT INTO `user` (`id`, `name`, `npm`, `email`, `no_telp`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
+(1, 'Admin', '1', 'admin@gmail.com', '', 'default.jpg', '$2y$10$QeBq5q7Uzxw2wd5Fkc5kee3zsn.rwPQXUwow0xRPA1KHzvLCnEzb6', 1, 1, 1689850388);
 
 -- --------------------------------------------------------
 
@@ -328,7 +329,7 @@ ALTER TABLE `tanggapan`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`

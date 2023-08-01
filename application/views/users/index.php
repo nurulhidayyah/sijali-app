@@ -23,6 +23,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">NPM</th>
                         <th scope="col">Email</th>
+                        <th scope="col">No Telepon</th>
                         <th scope="col">Role</th>
                         <th scope="col">Active</th>
                         <th scope="col">Action</th>
@@ -36,6 +37,7 @@
                             <td><?= $u['name']; ?></td>
                             <td><?= $u['npm']; ?></td>
                             <td><?= $u['email']; ?></td>
+                            <td><?= $u['no_telp']; ?></td>
                             <td><?= $u['role']; ?></td>
                             <td><?= $u['status']; ?></td>
                             <td>

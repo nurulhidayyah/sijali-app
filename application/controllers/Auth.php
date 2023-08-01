@@ -101,6 +101,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'This email has already registered!'
         ]);
+        $this->form_validation->set_rules('no_telp', 'No Telepon', 'required|trim|min_length[10]|max_length[15]');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
             'matches' => 'Password dont match!',
             'min_length' => 'Password too short!'
@@ -118,6 +119,7 @@ class Auth extends CI_Controller
                 'name' => htmlspecialchars($this->input->post('name', true)),
                 'npm' => htmlspecialchars($this->input->post('no_identitas', true)),
                 'email' => htmlspecialchars($email),
+                'no_telp' => htmlspecialchars($this->input->post('no_telp', true)),
                 'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'role_id' => 2,
