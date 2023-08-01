@@ -14,6 +14,11 @@ class Admin extends CI_Controller
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['staff'] = $this->db->get_where('staff', ['email' => $this->session->userdata('email')])->row_array();
+        
+        $this->load->model('Pengaduan_model', 'pengaduan');
+        $data['aksesHariIni'] = $this->pengaduan->getDataHarian();
+        $data['jumlahAkses'] = $this->pengaduan->getData();
+        $data['terlayani'] = $this->pengaduan->getDataTerlayani();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

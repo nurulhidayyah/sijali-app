@@ -13,6 +13,10 @@ class User extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = 'Dashboard User';
+        $this->load->model('Pengaduan_model', 'pengaduan');
+        $data['aksesHariIni'] = $this->pengaduan->getDataHarian();
+        $data['jumlahAkses'] = $this->pengaduan->getData();
+        $data['terlayani'] = $this->pengaduan->getDataTerlayani();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -59,7 +63,7 @@ class User extends CI_Controller
                 'user_id' => $data['user']['id'],
                 'title' => $this->input->post('title'),
                 'body' => $this->input->post('body'),
-                'created_at' => time(),
+                'created_at' => date('d-m-Y'),
                 'bukti' => $new_image,
                 'status' => '0'
             ];
@@ -73,6 +77,50 @@ class User extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengaduan berhasil dikirim</div>');
             redirect('user/pengaduan');
         }
+    }
+
+    public function pengaduanEdit($id)
+    {
+        $data['pengaduan'] = $this->db->get_where('pengaduan', ['id' => $id])->row_array();
+
+        $this->form_validation->set_rules('title', 'Judul', 'required|trim');
+        $this->form_validation->set_rules('body', 'Isi Laporan', 'required|trim');
+
+
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('users/pengaduan', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $title = $this->input->post('title');
+            $body = $this->input->post('body');
+
+            $this->db->set('title', $title);
+            $this->db->set('body', $body);
+            $this->db->set('created_at', time());
+            $this->db->where('id', $id);
+            $this->db->update('pengaduan');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your data pengaduan has been updated!</div>');
+            redirect('user/pengaduan');
+        }
+    }
+
+    public function pengaduanDelete($id)
+    {
+        $data['pengaduan'] = $this->db->get_where('pengaduan', ['id' => $id])->row_array();
+        $this->db->where('id', $id);
+        $this->db->delete('pengaduan');
+        $old_image = $data['pengaduan']['bukti'];
+        if ($old_image != 'default.jpg') {
+            unlink(FCPATH . 'assets/img/profile/' . $old_image);
+        }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your data users has been deleted!</div>');
+        redirect('user/pengaduan');
     }
 
     public function pengaduan_detail($id)

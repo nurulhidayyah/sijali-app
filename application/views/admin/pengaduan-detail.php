@@ -27,7 +27,7 @@
 
             <div class="col-md-6">
                 <div class="card-body">
-                    <h5 class="card-title">Tgl Pengaduan : <?= date('Y-d-m', $pengaduan['created_at']); ?></h5>
+                    <h5 class="card-title">Tgl Pengaduan : <?= $pengaduan['created_at']; ?></h5>
                     <p class="card-text">Status : <?= $pengaduan['status'] == 0 ? 'Belum di verifikasi' : ''; ?></p>
                     <p class="card-text"><small class="text-muted">Laporan : <?= $pengaduan['body'] ?></small></p>
                 </div>

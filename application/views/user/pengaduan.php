@@ -66,7 +66,7 @@
                         <td><?= $p['name']; ?></td>
                         <td><?= $p['title']; ?></td>
                         <td><?= $p['body']; ?></td>
-                        <td><?= date('Y-m-d', $p['created_at']); ?></td>
+                        <td><?= $p['created_at']; ?></td>
                         <td>
                             <img src="<?= base_url('/assets/img/profile/' . $p['bukti']); ?>" alt="<?= $p['bukti']; ?>" width="100">
                         </td>
@@ -89,9 +89,9 @@
                             <a href="<?= base_url('user/pengaduan_detail/' . $p['id']) ?>" class="badge badge-success"><i class="fas fa-fw fa-eye"></i></a>
 
                             <?php if ($p['status'] == 0) : ?>
-                                <a href="<?= base_url('Masyarakat/PengaduanController/edit/' . $p['id']) ?>" class="badge badge-info">Edit</a>
+                                <a href="#" data-toggle="modal" data-target="#updatePengaduan<?= $p['id']; ?>" class="badge badge-info">Edit</a>
 
-                                <a href="<?= base_url('Masyarakat/PengaduanController/pengaduan_batal/' . $p['id']) ?>" class="badge badge-warning">Hapus</a>
+                                <a href="#" data-toggle="modal" data-target="#deletePengaduan<?= $p['id']; ?>" class="badge badge-warning">Hapus</a>
                             <?php else : ?>
                                 <small>Tidak ada aksi</small>
                             <?php endif; ?>
@@ -108,3 +108,65 @@
 
 </div>
 <!-- End of Main Content -->
+
+<!-- Modal -->
+
+<!-- Modal Edit-->
+<?php foreach ($pengaduan as $p) : ?>
+    <div class="modal fade" id="updatePengaduan<?= $p['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="updatePengaduanLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updatePengaduanLabel">Update Pengaduan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('user/pengaduanEdit/' . $p['id']); ?>" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="title">Judul</label>
+                            <input type="text" class="form-control" id="title" name="title" value="<?= $p['title']; ?>" placeholder="Judul">
+                        </div>
+                        <div class="form-group">
+                            <label for="body">Isi laporan</label>
+                            <input type="text" class="form-control" id="body" name="body" value="<?= $p['body']; ?>" placeholder="Isi Laporan">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+<!-- Modal Hapus-->
+<?php foreach ($pengaduan as $p) : ?>
+    <div class="modal fade" id="deletePengaduan<?= $p['id']; ?>">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete <?= $p['title']; ?></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Apakah Anda Yakin Ingin Menghapus Data Ini...??</h5>
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a href="<?= base_url('user/pengaduanDelete/' . $p['id']) ?>" class="btn btn-danger">Delete</a>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+<?php endforeach; ?>

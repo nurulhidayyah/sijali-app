@@ -32,7 +32,7 @@
                             <span class="text-dark">No Identitas :</span>
                             <p><?= $p['npm'] ?></p>
                             <span class="text-dark">Tgl Pengaduan :</span>
-                            <p><?= date('d-m-Y', $p['created_at']); ?></p>
+                            <p><?= $p['created_at']; ?></p>
                         </div>
                     </div>
                 </div>

@@ -25,7 +25,7 @@
                         <td><?= $p['name'] ?></td>
                         <td><?= $p['npm'] ?></td>
                         <td><?= $p['title'] ?></td>
-                        <td><?= date('d-m-Y', $p['created_at']); ?></td>
+                        <td><?=  $p['created_at']; ?></td>
                         <td>
                             <?php
                             if ($p['status'] == '0') :

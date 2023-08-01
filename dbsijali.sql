@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2023 at 05:56 PM
+-- Generation Time: Aug 01, 2023 at 01:05 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -32,7 +32,7 @@ CREATE TABLE `pengaduan` (
   `user_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `body` text NOT NULL,
-  `created_at` int(11) NOT NULL,
+  `created_at` varchar(255) NOT NULL,
   `bukti` varchar(255) DEFAULT NULL,
   `status` int(1) DEFAULT NULL,
   `kategori_id` int(11) DEFAULT NULL
@@ -60,7 +60,7 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `staff`, `kategori`, `email`, `password`, `image`, `role_id`, `date_created`) VALUES
-(1, 'UPT Kemahasiswaan', 'Kemahasiswaan', 'kemahasiswaan@gmail.com', '$2y$10$P2/4qow0eHuISWgqVPfOhOI/0csQHyxtnD2JLVlZlD0wIwclXyVHq', 'default.jpg', 3, '1689850315');
+(1, 'UPT Kemahasiswaan', 'Kemahasiswaan', 'kemahasiswaan@gmail.com', '$2y$10$qjajq6qfXuszYsyBG8kRJOUFpC7/rdWfAwRl79kfZuHvuUf62WCw2', 'default.jpg', 3, '1689851262');
 
 -- --------------------------------------------------------
 
@@ -99,8 +99,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `npm`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(1, 'Admin', '1', 'admin@gmail.com', 'default.jpg', '$2y$10$QeBq5q7Uzxw2wd5Fkc5kee3zsn.rwPQXUwow0xRPA1KHzvLCnEzb6', 1, 1, 1689850388),
-(2, 'Nurul Hidayah', '1101191095', 'nurulhidayyah45@gmail.com', 'default.jpg', '$2y$10$rmwDoFjOJZW2foNX6pOU1.BJHjLkFQ3AYnKIiwXqQxMyJkOcPY8Mu', 2, 1, 1689850459);
+(1, 'Admin', '1', 'admin@gmail.com', 'default.jpg', '$2y$10$QeBq5q7Uzxw2wd5Fkc5kee3zsn.rwPQXUwow0xRPA1KHzvLCnEzb6', 1, 1, 1689850388);
 
 -- --------------------------------------------------------
 
@@ -317,7 +316,7 @@ ALTER TABLE `pengaduan`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tanggapan`
